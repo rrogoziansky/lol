@@ -16,43 +16,35 @@ public class find {
     //    @BeforeClasspublicstaticvoidopenInbox(){timeout=10000;baseUrl="http://gmail.com";open("/");$(byText("Loading")).should(disappear);login()
     @Test
     public void findValid() {
-//        int timeout = 10000;
-
         Configuration.startMaximized = true;
-
         //System.setProperty("webdriver.chrome.driver", "c:\\Git\\autotests\\drivers\\chromedriver_win32_77.0.3865.40_v2\\chromedriver.exe");
+        open("https://keys.lol/ethereum/595152888053985722161695317475469997481780498821257707627723014319776359314");
 
-        open("https://keys.lol/ethereum/595152888053985722161695317475469997481780498821257705627723014319776359314");
-        timeout = 10*1000;
-
-        ////*[@class="wallet flex flex-col lg:flex-row font-mono text-sm pl-2 py-1 lg:py-0 filled"]
-//        String k;
         WebElement green = $(By.xpath("//*[@class=\"wallet flex flex-col lg:flex-row font-mono text-sm pl-2 py-1 lg:py-0 filled\"]"));
         WebElement red = $(By.xpath("//*[@class=\"wallet flex flex-col lg:flex-row font-mono text-sm pl-2 py-1 lg:py-0 empty\"]"));
+        WebElement grey = $(By.xpath("//*[@class=\"wallet loading flex flex-col lg:flex-row font-mono text-sm pl-2 py-1 lg:py-0\"]"));
 
         boolean greenexist;
-
         int i = 0;
+
         do {
-            System.out.println("green exist: " + $(green).exists());
-            System.out.println("red exist: " + $(red).exists());
+            $(By.xpath("//*[@class=\"wallet loading flex flex-col lg:flex-row font-mono text-sm pl-2 py-1 lg:py-0\"]")).waitUntil(Condition.disappear, 15*1000);
+
             greenexist = $(green).exists();
-            i++;
-//            $$(By.xpath("//*[@class=\"wallet flex flex-col lg:flex-row font-mono text-sm pl-2 py-1 lg:py-0 empty\"]")).shouldHaveSize(60);
-            try {Thread.sleep(1 * 2000);}
-            catch (InterruptedException e) {e.printStackTrace();}
-
-
-            System.out.print(i);
+            System.out.print(i + " ");
+            System.out.print("Green exist: " + $(green).exists() + "| ");
+            System.out.print("Red exist: " + $(red).exists() + "| ");
             System.out.println(" " + greenexist + " status");
             if (greenexist == false) {
-  //            $(By.xpath("//a[@title=\"Random page\"]")).click();
-                $(By.xpath("//a[@title=\"Last page\"]")).click();
+              $(By.xpath("//a[@title=\"Random page\"]")).click();
+//                $(By.xpath("//a[@title=\"Last page\"]")).click();
             }
+            i++;
         } while (greenexist == false);
         if (greenexist == true) {
             System.out.println("GOOOOOOOOOOOOD");
             Selenide.screenshot("link");
+            System.out.println($(green).getText());
         }
     }
 }
@@ -62,6 +54,10 @@ public class find {
 //        if (r == false) System.out.println("Test fell");
 //        if (r == true) System.out.println("Scan completed");
 //        return this;
+
+//
+//            try {Thread.sleep(1 * 2000);}
+//                    catch (InterruptedException e) {e.printStackTrace();}
 
 
 
